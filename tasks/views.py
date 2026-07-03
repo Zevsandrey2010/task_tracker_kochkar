@@ -10,7 +10,7 @@ from django.contrib.auth import login
 from .forms import TaskForm, CommentForm
 from .mixins import PermissionDenied, UserIsOwnerMixin
 from .models import Task, Comment
-
+from .mixins import UserIsOwnerMixin, SuccessMessageMixin
 
 class TaskListView(ListView):
     model = Task
@@ -40,29 +40,16 @@ class TaskDetailView(DetailView):
         return redirect("tasks:task_detail", pk=self.object.pk)
 
 
-class TaskCreateView(LoginRequiredMixin, CreateView):
+class TaskCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Task
     form_class = TaskForm
     template_name = "tasks/task_form.html"
     success_url = reverse_lazy("tasks:task_list")
+    success_message = "Завдання успішно створено!"
 
     def form_valid(self, form):
         form.instance.creator = self.request.user
         return super().form_valid(form)
-
-
-class TaskUpdateView(LoginRequiredMixin, UserIsOwnerMixin, UpdateView):
-    model = Task
-    form_class = TaskForm
-    template_name = "tasks/task_form.html"
-    success_url = reverse_lazy("tasks:task_list")
-
-
-class TaskDeleteView(LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
-    model = Task
-    template_name = "tasks/task_confirm_delete.html"
-    success_url = reverse_lazy("tasks:task_list")
-
 
 class RegisterView(CreateView):
     template_name = "registration/register.html"
@@ -73,6 +60,22 @@ class RegisterView(CreateView):
         response = super().form_valid(form)
         login(self.request, self.object)
         return response
+
+class TaskUpdateView(LoginRequiredMixin, UserIsOwnerMixin,
+                     SuccessMessageMixin, UpdateView):
+    model = Task
+    form_class = TaskForm
+    template_name = "tasks/task_form.html"
+    success_url = reverse_lazy("tasks:task_list")
+    success_message = "Завдання успішно оновлено!"
+
+
+class TaskDeleteView(LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
+    model = Task
+    template_name = "tasks/task_confirm_delete.html"
+    success_url = reverse_lazy("tasks:task_list")
+
+
     
 
 class CommentEditView(LoginRequiredMixin, UpdateView):
