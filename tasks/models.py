@@ -1,8 +1,5 @@
-from audioop import reverse
 from django.db import models
-from django.db.models import Q, F
 from django.contrib.auth.models import User
-
 
 class Task(models.Model):
 

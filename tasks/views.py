@@ -3,7 +3,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView
 from django.views.generic.edit import DeleteView, UpdateView
-
+from django.core.exceptions import PermissionDenied
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 
