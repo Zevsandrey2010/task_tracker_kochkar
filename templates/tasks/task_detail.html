@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>{{ task.title }}</h2>
+
+<p><strong>Опис:</strong></p>
+<p>{{ task.description }}</p>
+
+<p><strong>Статус:</strong> {{ task.get_status_display }}</p>
+
+<p><strong>Пріоритет:</strong> {{ task.get_priority_display }}</p>
+
+<p><strong>Дата:</strong> {{ task.due_date }}</p>
+
+{% if task.file %}
+<p>
+    <a href="{{ task.file.url }}">Завантажений файл</a>
+</p>
+{% endif %}
+
+<hr>
+
+<h4>Коментарі</h4>
+
+{% for comment in comments %}
+<div class="card mb-2">
+    <div class="card-body">
+        <strong>{{ comment.author }}</strong><br>
+        {{ comment.content }}
+    </div>
+</div>
+{% empty %}
+<p>Коментарів поки немає.</p>
+{% endfor %}
+
+<hr>
+
+<h4>Додати коментар</h4>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-primary">
+        Надіслати
+    </button>
+</form>
+
+{% endblock %}
