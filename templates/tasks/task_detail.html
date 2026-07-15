@@ -28,6 +28,13 @@
     <div class="card-body">
         <strong>{{ comment.author }}</strong><br>
         {{ comment.content }}
+
+        <form action="{% url 'tasks:comment-like' comment.id %}" method="post" class="mt-2">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger btn-sm">
+                ❤️ {{ comment.likes_count }}
+            </button>
+        </form>
     </div>
 </div>
 {% empty %}

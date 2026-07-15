@@ -1,4 +1,5 @@
 from django.urls import path
+from . import views
 
 from tasks.views import (
     CommentDeleteView,
@@ -24,4 +25,5 @@ urlpatterns = [
     path(
         "comment/<int:pk>/delete/", CommentDeleteView.as_view(), name="comment_delete"
     ),
+    path("comment/<int:pk>/like/", views.like_comment, name="comment-like"),
 ]
