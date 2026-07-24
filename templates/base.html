@@ -10,12 +10,12 @@
 
     <nav>
         <div>
-            <a href="{% url 'tasks:task_list' %}">Головна</a>
+            <a href="{% url 'tasks:task_list' %}">Home</a>
             {% if user.is_authenticated %}
-                <a href="{% url 'tasks:task_create' %}">Створити</a>
+                <a href="{% url 'tasks:task_create' %}">Create</a>
                 <form action="{% url 'logout' %}" method="post" class="d-inline">
                     {% csrf_token %}
-                    <button>Вийти</button>
+                    <button>Exit</button>
                 </form>
             {% else %}
                 <a href="{% url 'login' %}">Login</a>
