@@ -4,24 +4,24 @@
 
 <h2>{{ task.title }}</h2>
 
-<p><strong>Опис:</strong></p>
+<p><strong>Description:</strong></p>
 <p>{{ task.description }}</p>
 
-<p><strong>Статус:</strong> {{ task.get_status_display }}</p>
+<p><strong>Status:</strong> {{ task.get_status_display }}</p>
 
-<p><strong>Пріоритет:</strong> {{ task.get_priority_display }}</p>
+<p><strong>Priority:</strong> {{ task.get_priority_display }}</p>
 
-<p><strong>Дата:</strong> {{ task.due_date }}</p>
+<p><strong>Date:</strong> {{ task.due_date }}</p>
 
 {% if task.file %}
 <p>
-    <a href="{{ task.file.url }}">Завантажений файл</a>
+    <a href="{{ task.file.url }}">Download File</a>
 </p>
 {% endif %}
 
 <hr>
 
-<h4>Коментарі</h4>
+<h4>Comments</h4>
 
 {% for comment in comments %}
 <div class="card mb-2">
@@ -38,18 +38,18 @@
     </div>
 </div>
 {% empty %}
-<p>Коментарів поки немає.</p>
+<p>There are no comments yet.</p>
 {% endfor %}
 
 <hr>
 
-<h4>Додати коментар</h4>
+<h4>Add Comment</h4>
 
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button class="btn btn-primary">
-        Надіслати
+        Add Comment
     </button>
 </form>
 

@@ -2,10 +2,10 @@
 
 {% block content %}
 
-<h2>Видалення</h2>
+<h2>Delete Task</h2>
 
 <p>
-    Ви впевнені, що хочете видалити
+    Are you sure you want to delete
     <strong>{{ object.title }}</strong>?
 </p>
 
@@ -14,11 +14,11 @@
     {% csrf_token %}
 
     <button class="btn btn-danger">
-        Видалити
+        Delete
     </button>
 
     <a href="{% url 'tasks:task_list' %}" class="btn btn-secondary">
-        Скасувати
+        Cancel
     </a>
 
 </form>
